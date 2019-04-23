@@ -31,7 +31,7 @@ trait SuppressedTopology {
         .windowedBy(TimeWindows.of(Duration.ofSeconds(40)).grace(Duration.ofSeconds(20)))
         .aggregate("")((k, v, agg) => v+agg+" ")
         .inner
-        .suppress(Suppressed.untilWindowCloses(BufferConfig.unbounded()gst))
+        .suppress(Suppressed.untilWindowCloses(BufferConfig.unbounded()))
 
     new KTable(kt)
       .toStream[String]((k, v) => k.key())
