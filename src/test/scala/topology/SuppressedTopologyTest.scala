@@ -35,7 +35,7 @@ class SuppressedTopologyTest extends WordSpec with Matchers with EmbeddedKafkaSt
         publishToKafka(inputTopic, "1", "test2")
 
 
-        withConsumer[String, Long, Unit] { consumer =>
+        withConsumer[String, String, Unit] { consumer =>
           Thread.sleep(1000)
           consumer.subscribe(List(outputTopic).asJava)
 
@@ -47,7 +47,7 @@ class SuppressedTopologyTest extends WordSpec with Matchers with EmbeddedKafkaSt
         }
       }
 
-      def consumerMessages(consumer: KafkaConsumer[String, Long]) = {
+      def consumerMessages(consumer: KafkaConsumer[String, String]) = {
         val messages = consumer.poll(100)
         if (messages.isEmpty) println("Empty")
         messages.asScala.foreach(r => {
